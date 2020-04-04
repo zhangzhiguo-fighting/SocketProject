@@ -1,10 +1,3 @@
-/*************************************************************************
-	> File Name: server.c
-	> Author: suyelu
-	> Mail: suyelu@haizeix.com
-	> Created Time: 日  3/29 16:12:32 2020
- ************************************************************************/
-
 #include "../common/common.h"
 #include "../common/tcp_server.h"
 #include "../common/chatroom.h"
@@ -39,6 +32,14 @@ int check_name(char *name) {
     return -1;
 }
 
+void send_name(struct Msg msg, int fd) {
+    for (int i = 0; i < MAX_CLIENT; i++) {
+        if (client[i].online){
+            strcpy(msg.message, client[i].name);
+            chat_send(msg, fd);
+        }
+    }
+}
 void *work(void *arg){
     int sub = *(int *)arg;
     int client_fd = client[sub].fd;
@@ -55,7 +56,13 @@ void *work(void *arg){
         }
 
         printf(BLUE"%s"NONE" : %s\n",rmsg.msg.from, rmsg.msg.message);
-        if (rmsg.msg.flag == 0) {
+        if(strcmp(rmsg.msg.message, "#1") == 0){
+            
+            sprintf(rmsg.msg.message, "%d", sum);
+            chat_send(rmsg.msg, client_fd);
+            send_name(rmsg.msg, client_fd);
+        }
+        else if (rmsg.msg.flag == 0) {
             send_all(rmsg.msg);
         } else if (rmsg.msg.flag == 1) {
             if (rmsg.msg.message[0] == '@') {
@@ -144,3 +151,4 @@ int main() {
     }
     return 0;
 }
+

@@ -19,4 +19,5 @@
 #include <fcntl.h>
 #include <stdbool.h>
 #include <signal.h>
+#include <sys/wait.h>
 #endif
