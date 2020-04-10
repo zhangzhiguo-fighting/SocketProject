@@ -1,9 +1,9 @@
-
-
-
-
-
-
+/*************************************************************************
+	> File Name: sender.c
+	> Author: suyelu
+	> Mail: suyelu@haizeix.com
+	> Created Time: Thu 02 Apr 2020 06:39:54 PM CST
+ ************************************************************************/
 
 #include "./common/head.h"
 #include "./common/tcp_client.h"
@@ -17,7 +17,7 @@ struct FileMsg{
 
 int main(int argc, char **argv) {
     if (argc != 3) {
-        fprintf(stderr,"Usage: %s ip port!\n", argv[0]);
+        fprintf(stderr, "Usage: %s ip port!\n", argv[0]);
         return 1;
     }
 
@@ -28,10 +28,10 @@ int main(int argc, char **argv) {
 
     port = atoi(argv[2]);
     if ((sockfd = socket_connect(argv[1], port)) < 0) {
-        perror("sock_creat");
+        perror("socket_connect");
         return 1;
     }
-
+    
     while (1) {
         scanf("%[^\n]s", buff);
         getchar();
@@ -48,11 +48,11 @@ int main(int argc, char **argv) {
             continue;
         }
         fseek(fp, 0L, SEEK_END);
-        filemsg.size = ftell(fp);//返回长整型
+        filemsg.size = ftell(fp);
         strcpy(filemsg.name, name);
-        fseek(fp, 0L, SEEK_SET);//将指针移回去
+        fseek(fp, 0L, SEEK_SET);
         while ((size = fread(filemsg.buf, 1, 4096, fp))) {
-            send(sockfd, (void *)&filemsg, sizeof(filemsg), 0); //char *
+            send(sockfd, (void *)&filemsg, sizeof(filemsg), 0);
             memset(filemsg.buf, 0, sizeof(filemsg.buf));
         }
         printf("After Send!\n");
@@ -60,4 +60,3 @@ int main(int argc, char **argv) {
     close(sockfd);
     return 0;
 }
-
