@@ -20,4 +20,7 @@
 #include <stdbool.h>
 #include <signal.h>
 #include <sys/wait.h>
+#include <sys/time.h>
+#include <poll.h>
+#include <sys/select.h>
 #endif
