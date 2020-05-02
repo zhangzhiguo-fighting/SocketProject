@@ -27,7 +27,7 @@ int socket_connect(char *host, int port) {
     return sockfd;
 }
 
-int socket_connect_timeout(char *host, int port, longtimeout) {
+int socket_connect_timeout(char *host, int port, long timeout) {
     int sockfd;
     struct sockaddr_in server;
     server.sin_family = AF_INET;
@@ -38,9 +38,9 @@ int socket_connect_timeout(char *host, int port, longtimeout) {
         perror("socket");
         return -1;
     }
-    make_noblock(sockfd);
+    make_nonblock(sockfd);
     printf("Socket create.\n");
-    struct tiomeval tv;
+    struct timeval tv;
     tv.tv_sec = 0;
     tv.tv_usec = timeout;
 
@@ -51,12 +51,12 @@ int socket_connect_timeout(char *host, int port, longtimeout) {
     if (connect(sockfd, (struct sockaddr *)&server, sizeof(server)) < 0) {
         int retval, error = -1;
         int len = sizeof(int);
-        retval = select(sockfd + 1, NULL, wfds, NULL, &tv) //在此阻塞
+        retval = select(sockfd + 1, NULL, &wfds, NULL, &tv); //在此阻塞
             if (retval < 0) {
                 close(sockfd);
                 return -1;
             } else if (retval) {
-                if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, (sicklen_t *)&len) < 0) {
+                if (getsockopt(sockfd, SOL_SOCKET, SO_ERROR, &error, (socklen_t *)&len) < 0) {
                     close(sockfd);
                     return -1;
                 }

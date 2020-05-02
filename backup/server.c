@@ -31,14 +31,14 @@ int main(int argc, char **argv) {
         exit(1);
     }
 
-    struct pollfd event_set[POLLSIZE];
+    struct pollfd event_set[POLLSIZE]; //结构体数组
 
-    for(int i = 0; i < POLLSIZE; i++) {
+    for(int i = 0; i < POLLSIZE; i++) { //对结构体进行初始化
         event_set[i].fd = -1;
     }
 
     event_set[0].fd = server_listen;
-    event_set[0].events = POLLIN;
+    event_set[0].events = POLLIN; //关注可读事件
 
     while(1) {
         int retval;
