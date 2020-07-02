@@ -29,4 +29,10 @@
 #include "./color.h"
 #include "./common.h"
 #include "./datatype.h"
+#include "./thread_pool.h"
+#include "./udp_epoll.h"
+#include <curses.h>
+#include "game.h"
+#include "show_data_stream.h"
+#include "show_strength.h"
 #endif

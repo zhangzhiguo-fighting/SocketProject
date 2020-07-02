@@ -36,8 +36,8 @@ typedef struct {
     int head;
     int tail;
     int *fd;//存储打开文件，已有连接
-    pthread_mutex_t mutex;
-    pthread_cond_t cond;
+    pthread_mutex_t mutex;//互斥量
+    pthread_cond_t cond; //互斥条件
 }TaskQueue;//任务队列
 
 void TaskQueueInit(TaskQueue *queue, int sum) {
