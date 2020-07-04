@@ -35,4 +35,6 @@
 #include "game.h"
 #include "show_data_stream.h"
 #include "show_strength.h"
+#include <math.h>
+#include "ball_status.h"
 #endif

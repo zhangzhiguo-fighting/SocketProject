@@ -18,6 +18,11 @@ struct Point{
     int y;
 };
 
+struct Bpoint{
+    double x;
+    double y;
+};
+
 struct User{
     int team;
     int fd;
@@ -66,6 +71,26 @@ struct FootBallMsg {
     char name[20];
     char msg[MAXMSG];
     struct Ctrl ctl;
+};
+
+struct Aspeed{
+    double x;
+    double y;
+};
+
+struct Speed{
+    double x;
+    double y;
+};
+
+
+struct BallStatus {
+    struct Speed v;
+    struct Aspeed a;
+    int t;
+    int who;
+    char name[20];
+    //pthread_mutex_t mutex;
 };
 
 #endif

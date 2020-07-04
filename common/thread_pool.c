@@ -62,6 +62,14 @@ void do_echo(struct User *user) {
             if (user->loc.y <= 1) user->loc.y = 1;
             if (user->loc.y >= court.heigth - 1) user->loc.y = court.heigth - 1;
         }
+        if (msg.ctl.action & ACTION_KICK) {
+            struct BallStatus ball_status;
+            show_data_stream('k');
+            if (can_kick(&user->loc, msg.ctl.strength)) {
+                ball_status.who = user->team;
+                strcpy(ball_status.name, user->name);
+            }
+        }
     }
 }
 

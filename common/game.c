@@ -74,8 +74,8 @@ void initfootball() {
     init_pair(12, COLOR_BLACK, COLOR_BLUE);
     
     //Football = create_newwin(court.width, court.heigth, court.start.x, court.start.y);
-    Football_t = create_newwin(court.width + 4, court.heigth + 2, court.start.x - 2, court.start.y - 1);
-    Football = subwin(Football_t, court.heigth, court.width, court.start.y, court.start.x);
+    Football_t = create_newwin(court.width + 4, court.heigth + 2, court.start.x - 2, court.start.y - 1); //external window start(1, 0)
+    Football = subwin(Football_t, court.heigth, court.width, court.start.y, court.start.x); //internal window start(3, 1)
     box(Football, 0, 0);
     WINDOW *Message_t = create_newwin(court.width + 4, 7, court.start.x - 2, court.start.y + 1 + court.heigth);
     Message = subwin(Message_t, 5, court.width + 2, court.start.y + court.heigth + 2, court.start.x - 1);
