@@ -87,8 +87,17 @@ void initfootball() {
     //Write = subwin(Write_t, 3, court.width + 20 - 2, court.start.y + court.heigth + 7 + 1, court.start.x + 1);
 }
 
+void init_help() {
+	w_gotoxy_puts(Help, 1, 1, "wasd - ctrl dir");
+	w_gotoxy_puts(Help, 1, 3, "  j  - stop");
+	w_gotoxy_puts(Help, 1, 5, "  k  - kick");
+	w_gotoxy_puts(Help, 1, 7, "  l  - canrry");
+	w_gotoxy_puts(Help, 1, 9, " ' ' - strength");
+}
+
 void *draw(void *arg) {
     initfootball();
+    init_help();
     while (1) {
         sleep(10);
     }

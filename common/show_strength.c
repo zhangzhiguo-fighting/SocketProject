@@ -23,7 +23,8 @@ void show_strength() {
         char c = getchar();
         if (c != -1) {
             if (c == ' ' || c == 'k') {
-                //
+                //改为阻塞
+                make_block(0); //解决了空格后不能打字的问题
                 break;
             }
         }
@@ -43,6 +44,7 @@ void show_strength() {
     }
     int arr[5] = {1, 2, 3, 2, 1};
     struct FootBallMsg msg;
+    bzero(&msg, sizeof(msg));
     msg.type = FT_CTL;
     msg.ctl.action = ACTION_KICK;
     msg.ctl.strength = arr[mousex / (maxx / 5)];

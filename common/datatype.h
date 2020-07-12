@@ -26,6 +26,7 @@ struct Bpoint{
 struct User{
     int team;
     int fd;
+    int carry;
     char name[20];
     int online;
     int flag; //未效应次数,判断是否在线
@@ -89,8 +90,14 @@ struct BallStatus {
     struct Aspeed a;
     int t;
     int who;
+    int carry;
     char name[20];
     //pthread_mutex_t mutex;
+};
+
+struct Score {
+    int red;
+    int blue;
 };
 
 #endif

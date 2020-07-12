@@ -5,7 +5,7 @@
 #define MAX 50
 extern int repollfd, bepollfd;
 extern struct User *rteam, *bteam;
-
+struct BallStatus ball_status;
 int ch = 'n';
 
 //#define MAXTASK 100
@@ -63,9 +63,29 @@ void do_echo(struct User *user) {
             if (user->loc.y >= court.heigth - 1) user->loc.y = court.heigth - 1;
         }
         if (msg.ctl.action & ACTION_KICK) {
-            struct BallStatus ball_status;
             show_data_stream('k');
             if (can_kick(&user->loc, msg.ctl.strength)) {
+                ball_status.carry = 0; //解决了带球，踢不走球的问题
+                user->carry = 0;
+                ball_status.who = user->team;
+                strcpy(ball_status.name, user->name);
+            }
+        }
+        if (msg.ctl.action & ACTION_STOP) {
+            show_data_stream('o');
+            if (can_stop(&user->loc)) {
+                ball_status.carry = 0;
+                user->carry = 0;
+                ball_status.who = user->team;
+                strcpy(ball_status.name, user->name);
+            }
+            
+        } 
+        if (msg.ctl.action & ACTION_CARRY) {
+            if (can_carry(&user->loc)) {
+                show_data_stream('c');
+                ball_status.carry = 1;
+                user->carry = 1;
                 ball_status.who = user->team;
                 strcpy(ball_status.name, user->name);
             }
